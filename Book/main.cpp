@@ -18,6 +18,7 @@
 int main()
 {
     setlocale(0, "Rus");
+    const char* fileName = "book.bin";
     Book book1;
     try {
         cin >> book1;
@@ -26,13 +27,9 @@ int main()
         cerr << ex.what();
     }
     // Save data:
-    ofstream file("book.bin", ios::binary);
-    file.write(reinterpret_cast<const char*>(&book1), sizeof(book1));
-    file.close();
+    book1.saveBook(fileName);
     // Load data:
     Book book2;
-    ifstream file2("book.bin", ios::binary);
-    file2.read(reinterpret_cast<char*>(&book2), sizeof(book2));
+    Book::loadData(book2, fileName);
     cout << book2;
-    file2.close();
 }
